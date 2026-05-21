@@ -1,23 +1,17 @@
+from fastapi import Request
+
 import redis.asyncio as redis
+
 from app.core.config import settings
 
-redis_client: redis.Redis | None = None
+
+async def create_redis():
+    return redis.from_url(settings.REDIS_URL, decode_responses=True)
 
 
-async def init_redis():
-    global redis_client
-    if not redis_client:
-        redis_client = redis.from_url(settings.REDIS_URL, decode_responses=True)
+async def close_redis(redis_client: redis.Redis)
+    await redis_client.close()
 
 
-async def close_redis():
-    global redis_client
-    if redis_client:
-        await redis_client.close()
-        redis_client = None
-
-
-async def get_redis() -> redis.Redis:
-    if not redis_client:
-        await init_redis()
-    return redis_client
+async def get_redis(request: Request) -> redis.Redis:
+    return request.app.state.redis

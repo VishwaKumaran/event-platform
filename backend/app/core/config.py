@@ -20,12 +20,12 @@ class Settings(BaseSettings):
         return self.ENVIRONMENT in ["local", "dev"]
 
     API_V1: str = "/api/v1"
-    
+
     DB_HOST: str
     DB_PORT: int
     DB_USER: str
     DB_NAME: str
-    
+
     DATABASE_URL: Optional[str] = None
 
     @computed_field
@@ -34,16 +34,15 @@ class Settings(BaseSettings):
         if self.DATABASE_URL:
             return self.DATABASE_URL
         return f"postgresql+asyncpg://{self.DB_USER}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
-    
-    
+
     SECRET_KEY: str
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
-    
-    
-    REDIS_URL: str
 
-    
+    REDIS_URL: str
+    REDIS_STREAM: str = "events.raw"
+
+
 # No external observability configured
 
 
