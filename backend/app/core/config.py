@@ -25,7 +25,7 @@ class Settings(BaseSettings):
     DB_PORT: int
     DB_USER: str
     DB_NAME: str
-
+    DB_PASSWORD: str
     DATABASE_URL: Optional[str] = None
 
     @computed_field
@@ -33,7 +33,7 @@ class Settings(BaseSettings):
     def DATABASE_URI(self) -> str:
         if self.DATABASE_URL:
             return self.DATABASE_URL
-        return f"postgresql+asyncpg://{self.DB_USER}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+        return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
 
     SECRET_KEY: str
     ALGORITHM: str = "HS256"
@@ -41,9 +41,6 @@ class Settings(BaseSettings):
 
     REDIS_URL: str
     REDIS_STREAM: str = "events.raw"
-
-
-# No external observability configured
 
 
 settings = Settings()

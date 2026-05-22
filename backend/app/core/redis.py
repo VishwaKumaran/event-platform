@@ -1,6 +1,5 @@
-from fastapi import Request
-
 import redis.asyncio as redis
+from fastapi import Request
 
 from app.core.config import settings
 
@@ -9,7 +8,7 @@ async def create_redis():
     return redis.from_url(settings.REDIS_URL, decode_responses=True)
 
 
-async def close_redis(redis_client: redis.Redis)
+async def close_redis(redis_client: redis.Redis):
     await redis_client.close()
 
 
