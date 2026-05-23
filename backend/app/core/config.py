@@ -1,4 +1,4 @@
-from typing import Literal, Optional
+from typing import Literal
 
 from pydantic import computed_field
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -21,19 +21,7 @@ class Settings(BaseSettings):
 
     API_V1: str = "/api/v1"
 
-    DB_HOST: str
-    DB_PORT: int
-    DB_USER: str
-    DB_NAME: str
-    DB_PASSWORD: str
-    DATABASE_URL: Optional[str] = None
-
-    @computed_field
-    @property
-    def DATABASE_URI(self) -> str:
-        if self.DATABASE_URL:
-            return self.DATABASE_URL
-        return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+    POSTGRESQL_URI: str
 
     SECRET_KEY: str
     ALGORITHM: str = "HS256"

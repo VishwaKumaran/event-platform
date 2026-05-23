@@ -6,7 +6,7 @@ from sqlmodel import SQLModel
 
 from app.core.config import settings
 
-engine = create_async_engine(settings.DATABASE_URI, echo=settings.DEBUG, future=True)
+engine = create_async_engine(settings.POSTGRESQL_URI, echo=settings.DEBUG, future=True)
 
 async_session = async_sessionmaker(
     bind=engine,
