@@ -9,4 +9,4 @@ router = APIRouter(prefix="/events")
 
 @router.post("")
 async def create_event(event: EventSchema, redis=Depends(get_redis)):
-    return publish_event(redis, event.model_dump())
+    return await publish_event(redis, event.model_dump())

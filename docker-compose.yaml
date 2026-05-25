@@ -27,7 +27,7 @@ services:
         ports:
             - 8000:8000
         env_file:
-            - ./backend/.env
+            - ./backend/.env.docker
         depends_on:
             postgres:
                 condition: service_healthy
@@ -38,7 +38,7 @@ services:
         ports:
             - 8001:8000
         env_file:
-            - ./worker/.env
+            - ./worker/.env.docker
         depends_on:
             postgres:
                 condition: service_healthy

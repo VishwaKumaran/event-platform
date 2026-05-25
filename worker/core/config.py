@@ -10,7 +10,7 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    PROJECT_NAME: str = "backend"
+    PROJECT_NAME: str = "worker"
     ENVIRONMENT: Literal["local", "dev", "staging", "production"] = "local"
 
     @computed_field
@@ -18,16 +18,10 @@ class Settings(BaseSettings):
     def DEBUG(self) -> bool:
         return self.ENVIRONMENT in ["local", "dev"]
 
-    API_V1: str = "/api/v1"
-
-    POSTGRESQL_URI: str
-
-    SECRET_KEY: str
-    ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
-
     REDIS_URL: str
     REDIS_STREAM: str = "events.raw"
+    GROUP_NAME: str = "workers"
+    CONSUMER_NAME: str = "worker-1"
 
 
 settings = Settings()
