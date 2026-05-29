@@ -1,4 +1,4 @@
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from uuid import uuid4
 
 from pydantic import UUID4
@@ -10,7 +10,7 @@ class EventMetric(SQLModel, table=True):
     metric_name: str
     metric_value: int
     timestamp: datetime = Field(
-        default_factory=lambda: datetime.now(UTC),
+        default_factory=lambda: datetime.now(timezone.utc),
         nullable=False,
         index=True,
         sa_column_kwargs={
