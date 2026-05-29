@@ -2,7 +2,7 @@ from datetime import datetime, timezone
 from uuid import uuid4
 
 from pydantic import UUID4
-from sqlmodel import Field, SQLModel, text
+from sqlmodel import Column, DateTime, Field, SQLModel
 
 
 class EventMetric(SQLModel, table=True):
@@ -11,9 +11,5 @@ class EventMetric(SQLModel, table=True):
     metric_value: int
     timestamp: datetime = Field(
         default_factory=lambda: datetime.now(timezone.utc),
-        nullable=False,
-        index=True,
-        sa_column_kwargs={
-            "server_default": text("now()"),
-        },
+        sa_column=Column(DateTime(timezone=True), nullable=False),
     )
