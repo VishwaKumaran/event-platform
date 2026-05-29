@@ -14,6 +14,6 @@ class EventMetric(SQLModel, table=True):
         nullable=False,
         index=True,
         sa_column_kwargs={
-            "server_default": text("TIMEZONE('utc', now())"),
+            "server_default": text("now()"),
         },
     )
