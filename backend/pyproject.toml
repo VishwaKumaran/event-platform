@@ -21,4 +21,4 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-lib = { path = "../lib", editable = true }
+lib = { git = "https://github.com/VishwaKumaran/event-platform.git", subdirectory = "lib", branch = "main" }

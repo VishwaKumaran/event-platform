@@ -103,20 +103,12 @@ wheels = [
 [[package]]
 name = "lib"
 version = "0.1.0"
-source = { editable = "../lib" }
+source = { git = "https://github.com/VishwaKumaran/event-platform.git?subdirectory=lib&branch=main#5d8c9dcea6f3cf23d5944c0b23095bc1a421dc50" }
 dependencies = [
     { name = "asyncpg" },
     { name = "pydantic-settings" },
     { name = "redis" },
     { name = "sqlmodel" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "asyncpg", specifier = ">=0.31.0" },
-    { name = "pydantic-settings", specifier = ">=2.14.1" },
-    { name = "redis", specifier = ">=8.0.0" },
-    { name = "sqlmodel", specifier = ">=0.0.38" },
 ]
 
 [[package]]
@@ -303,7 +295,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "lib", editable = "../lib" },
+    { name = "lib", git = "https://github.com/VishwaKumaran/event-platform.git?subdirectory=lib&branch=main" },
     { name = "pydantic-settings", specifier = ">=2.14.1" },
     { name = "redis", specifier = ">=7.4.0" },
 ]

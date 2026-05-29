@@ -9,8 +9,8 @@ event_counter = defaultdict(int)
 
 
 async def process_event(event: Dict[str, Any]):
-    event_type = event.get("event_type")
-    user_id = event.get("user_id")
+    event_type: str = event["event_type"]
+    user_id = event["user_id"]
 
     event_counter[event_type] += 1
 
@@ -22,3 +22,19 @@ async def process_event(event: Dict[str, Any]):
     async with get_session() as session:
         session.add(metric)
         await session.commit()
+
+
+if __name__ == "__main__":
+
+    async def main():
+        await process_event(
+            {
+                "event_type": "click",
+                "user_id": "1cfce037-44f1-4907-a512-c008ea426099",
+                "metadata": {"page": "home", "button": "signin"},
+            }
+        )
+
+    import asyncio
+
+    asyncio.run(main())
