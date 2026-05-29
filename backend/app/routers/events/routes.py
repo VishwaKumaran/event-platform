@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
+from lib.schemas.events import EventSchema
 
 from app.core.redis import get_redis
-from app.schemas.events import EventSchema
 from app.services.events import publish_event
 
 router = APIRouter(prefix="/events")

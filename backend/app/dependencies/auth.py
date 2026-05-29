@@ -9,13 +9,12 @@ from starlette.requests import Request
 
 from app.core.config import settings
 from app.core.db import get_session
-from app.models.user import User
-
+from lib.models import User
 
 
 async def get_current_user(
-        request: Request,
-        session: Annotated[AsyncSession, Depends(get_session)],
+    request: Request,
+    session: Annotated[AsyncSession, Depends(get_session)],
 ):
     token = request.cookies.get("access_token")
     if not token:

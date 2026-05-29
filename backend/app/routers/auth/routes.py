@@ -3,8 +3,8 @@ from typing import Annotated
 from app.core.config import settings
 from app.core.db import get_session
 from app.core.security import verify_password, create_access_token, get_password_hash
-from app.models.user import User
-from app.schemas.auth import UserCreate
+from lib.models import User
+from lib.schemas.auth import UserCreate
 from fastapi import APIRouter, Depends, HTTPException, Response
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlmodel import select

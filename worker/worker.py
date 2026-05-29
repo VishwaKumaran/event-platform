@@ -2,9 +2,9 @@ import asyncio
 import json
 
 import redis.asyncio as redis
+from lib import redis_lifespan
 
 from core.config import settings
-from core.redis import redis_lifespan
 from processor import process_event
 
 
@@ -27,7 +27,7 @@ async def start_worker(redis_client: redis.Redis):
             settings.CONSUMER_NAME,
             {settings.REDIS_STREAM: ">"},
             count=10,
-            block=5000,
+            block=2000,
         )
 
         if not events:
@@ -38,7 +38,7 @@ async def start_worker(redis_client: redis.Redis):
                 try:
                     event = json.loads(data["data"])
 
-                    process_event(event)
+                    await process_event(event)
 
                     await redis_client.xack(
                         settings.REDIS_STREAM, settings.GROUP_NAME, message_id
@@ -47,12 +47,12 @@ async def start_worker(redis_client: redis.Redis):
                     print(f"ACK {message_id}")
 
                 except Exception as e:
-                    print(f"❌ ERROR: {e}")
+                    print(f"ERROR: {e}")
 
 
 async def main():
     print("MAIN")
-    async with redis_lifespan() as redis:
+    async with redis_lifespan(settings.REDIS_URL, socket_timeout=10) as redis:
         await create_consumer_group(redis)
         await start_worker(redis)
 
